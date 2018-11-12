@@ -27,24 +27,31 @@ begin
         if rising_edge(clk) then
             if enb = '1' then
             check <= to_integer(unsigned(addrb);
-            if(check > 120 and check < 19080)then
-              v0 <= intmem(to_integer(unsigned(addrb)) - 121);
-              v1 <= intmem(to_integer(unsigned(addrb)) - 120);
-              v2 <= intmem(to_integer(unsigned(addrb)) - 119);
-              v3 <= intmem(to_integer(unsigned(addrb)) - 1);
+            if(check > 24 and check < 144)then
+              v0 <= intmem(to_integer(unsigned(addrb)) + 24 + 1);
+              v1 <= intmem(to_integer(unsigned(addrb)) + 24);
+              v2 <= intmem(to_integer(unsigned(addrb)) + 24 - 1);
+              v3 <= intmem(to_integer(unsigned(addrb)) + 1);
               v4 <= intmem(to_integer(unsigned(addrb)));
-              v5 <= intmem(to_integer(unsigned(addrb)) + 1);
-              v6 <= intmem(to_integer(unsigned(addrb)) + 119);
-              v7 <= intmem(to_integer(unsigned(addrb)) + 120);
-              v8 <= intmem(to_integer(unsigned(addrb)) + 121);
+              v5 <= intmem(to_integer(unsigned(addrb)) - 1);
+              v6 <= intmem(to_integer(unsigned(addrb)) - 24 + 1);
+              v7 <= intmem(to_integer(unsigned(addrb)) - 24 );
+              v8 <= intmem(to_integer(unsigned(addrb)) - 24 - 1);
             if(smooth='1') then
-              value <= (v0 + v2 + v6 + v8)*8 + (v1 + v3 + v5 + v7)*16 + v4 * 32  ;
+              value <= ((v0 + v2 + v6 + v8)*8 + (v1 + v3 + v5 + v7)*16 + v4 * 32)/128  ;
             else
-              value <= v4 * 512 - (v0 + v1 + v2 + v3 + v5 + v6 + v7 + v8)*16;
+              value <= (v4 * 241 - (v0 + v1 + v2 + v3 + v5 + v6 + v7 + v8)*14)/128;
             end if;
-              doutb <= std_logic_vector(to_unsigned(value))(14 downto 7); 
+            if(value > 0 and value < 256)
+              doutb <= std_logic_vector(to_unsigned(value));
+            elsif( value < 0)
+              doutb <= "00000000";
+            else
+              doutb <= "11111111";
             end if;
             end if;
+            end if;
+
             if wea = '1' then 
               intmem(to_integer(unsigned(addra))) <= to_integer(unsigned(dina));
             end if;
