@@ -17,7 +17,7 @@ end dualport;
 architecture Behavioral of dualport is
       type  RAM is array(0 to 200) of integer range 0 to 256;
       signal intmem: RAM; 
-      signal v0,v1,v2,v3,v4,v5,v6,v7,v8,value,check,pass0s: integer:=0;
+      signal v0,v1,v2,v3,v4,v5,v6,v7,v8,value,check: integer:=0;
 begin
     process(clk, reset) begin
         if (reset = '1') then 
@@ -54,7 +54,7 @@ begin
             else
               doutb <= "00000000";
             end if;
-            
+
             end if;
 
             if wea = '1' then 
