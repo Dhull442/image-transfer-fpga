@@ -16,7 +16,7 @@ architecture Behavioral of timing is
     signal stater: state_typer := r0;
     type state_typet is (t0, t1, t2);
     signal statet: state_typet := t0; 
-    signal ctrr, ctrw: std_logic_vector(14 downto 0) := "00000000";
+    signal ctrr, ctrw: std_logic_vector(14 downto 0) := "000000000000000";
     signal writestop, readstop, incr, incw: std_logic := '0';
 begin
     state_transition: process(clk, reset) begin

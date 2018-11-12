@@ -26,7 +26,7 @@ begin
         
         if rising_edge(clk) then
             if enb = '1' then
-            check <= to_integer(unsigned(addrb);
+            check <= to_integer(unsigned(addrb));
             if((check > 24 and check < 47) or( check > 48 and check < 71 )or( check > 72 and check < 95)or( check > 96 and check < 119)or( check > 120 and check < 143))then
               v0 <= intmem(to_integer(unsigned(addrb)) + 24 + 1);
               v1 <= intmem(to_integer(unsigned(addrb)) + 24);
@@ -45,7 +45,7 @@ begin
               
               if(value > 0 and value < 256)
                 doutb <= std_logic_vector(to_unsigned(value));
-              elsif( value < 0)
+              elsif( value < 0 )
                 doutb <= "00000000";
               else
                 doutb <= "11111111";
